@@ -1,0 +1,5 @@
+flask==2.0.1
+flask-sqlalchemy==2.5.1
+gunicorn==20.1.0
+qrcode==7.3
+pillow==8.3.1 

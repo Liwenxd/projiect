@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI模型使用调查问卷</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f8f9fa;
+            padding: 20px;
+        }
+        .survey-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .models-container {
+            display: flex;
+            gap: 30px;
+        }
+        .model-section {
+            flex: 1;
+            margin: 20px 0;
+        }
+        .section-title {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            text-align: center;
+            font-weight: bold;
+        }
+        .model-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .model-option:hover {
+            background: #f8f9fa;
+            transform: translateX(5px);
+        }
+        .model-icon {
+            width: 32px;
+            height: 32px;
+            margin-right: 15px;
+            object-fit: contain;
+            border-radius: 6px;
+        }
+        .model-info {
+            flex-grow: 1;
+        }
+        .model-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 2px;
+        }
+        .model-company {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        .submit-btn {
+            background: linear-gradient(45deg, #2196F3, #00BCD4);
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            color: white;
+            border-radius: 25px;
+            transition: transform 0.3s;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+        }
+        .form-check-input {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+        }
+        /* 选中状态的样式 */
+        .model-option.selected {
+            background: rgba(33, 150, 243, 0.1);
+            border-color: #2196F3;
+        }
+    </style>
+</head>
+<body>
+    <div class="survey-container">
+        <h1 class="text-center mb-4">AI模型使用调查</h1>
+        <p class="text-center text-muted mb-4">请选择您使用过的AI大模型（可多选）</p>
+        
+        <form id="surveyForm">
+            <div class="models-container">
+                <!-- 国内AI模型 -->
+                <div class="model-section">
+                    <div class="section-title">国内AI大模型</div>
+                    <div class="model-options">
+                        <label class="model-option" for="tongyi">
+                            <input type="checkbox" class="form-check-input" id="tongyi" name="models" value="通义千问">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjRkY2QTAwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSJ3aGl0ZSI+6YCaPC90ZXh0Pjwvc3ZnPg==" class="model-icon" alt="通义千问">
+                            <div class="model-info">
+                                <div class="model-name">通义千问</div>
+                                <div class="model-company">阿里巴巴</div>
+                            </div>
+                        </label>
+                        <div class="model-option">
+                            <input type="checkbox" class="form-check-input" id="doubao" name="models" value="豆包">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMyNEY2RjA7c3RvcC1vcGFjaXR5OjEiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNGRjQwODg7c3RvcC1vcGFjaXR5OjEiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjMDAwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSJ1cmwoI2cpIj7mipM8L3RleHQ+PC9zdmc+" class="model-icon" alt="豆包">
+                            <div class="model-info">
+                                <div class="model-name">豆包</div>
+                                <div class="model-company">字节跳动</div>
+                            </div>
+                        </div>
+                        <div class="model-option">
+                            <input type="checkbox" class="form-check-input" id="xunfei" name="models" value="讯飞星火">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjMDA2NkZGIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSJ3aGl0ZSI+6K+tPC90ZXh0Pjwvc3ZnPg==" class="model-icon" alt="讯飞星火">
+                            <div class="model-info">
+                                <div class="model-name">讯飞星火</div>
+                                <div class="model-company">科大讯飞</div>
+                            </div>
+                        </div>
+                        <div class="model-option">
+                            <input type="checkbox" class="form-check-input" id="wenxin" name="models" value="文心一言">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjMjkzMkU0Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSJ3aGl0ZSI+5paHPC90ZXh0Pjwvc3ZnPg==" class="model-icon" alt="文心一言">
+                            <div class="model-info">
+                                <div class="model-name">文心一言</div>
+                                <div class="model-company">百度</div>
+                            </div>
+                        </div>
+                        <div class="model-option">
+                            <input type="checkbox" class="form-check-input" id="hunyuan" name="models" value="混元助手">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjMDBDQzM2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSJ3aGl0ZSI+5rSLPC90ZXh0Pjwvc3ZnPg==" class="model-icon" alt="混元助手">
+                            <div class="model-info">
+                                <div class="model-name">混元助手</div>
+                                <div class="model-company">腾讯</div>
+                            </div>
+                        </div>
+                        <div class="model-option">
+                            <input type="checkbox" class="form-check-input" id="zidong" name="models" value="紫东太初">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjOUIzMEZGIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSJ3aGl0ZSI+57qmPC90ZXh0Pjwvc3ZnPg==" class="model-icon" alt="紫东太初">
+                            <div class="model-info">
+                                <div class="model-name">紫东太初</div>
+                                <div class="model-company">中科院</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 国外AI模型 -->
+                <div class="model-section">
+                    <div class="section-title">国外AI大模型</div>
+                    <div class="model-options">
+                        <label class="model-option" for="chatgpt">
+                            <input type="checkbox" class="form-check-input" id="chatgpt" name="models" value="ChatGPT">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjMTBBMzdGIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSJ3aGl0ZSI+R1BUPC90ZXh0Pjwvc3ZnPg==" class="model-icon" alt="ChatGPT">
+                            <div class="model-info">
+                                <div class="model-name">ChatGPT</div>
+                                <div class="model-company">OpenAI</div>
+                            </div>
+                        </label>
+                        <div class="model-option">
+                            <input type="checkbox" class="form-check-input" id="watsonx" name="models" value="Watsonx">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjMDUzNEJFIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSJ3aGl0ZSI+SUJNPC90ZXh0Pjwvc3ZnPg==" class="model-icon" alt="Watsonx">
+                            <div class="model-info">
+                                <div class="model-name">Watsonx</div>
+                                <div class="model-company">IBM</div>
+                            </div>
+                        </div>
+                        <div class="model-option">
+                            <input type="checkbox" class="form-check-input" id="gemini" name="models" value="Gemini">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjNDI4NUY0Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSJ3aGl0ZSI+R0VNPC90ZXh0Pjwvc3ZnPg==" class="model-icon" alt="Gemini">
+                            <div class="model-info">
+                                <div class="model-name">Gemini</div>
+                                <div class="model-company">Google</div>
+                            </div>
+                        </div>
+                        <div class="model-option">
+                            <input type="checkbox" class="form-check-input" id="sagemaker" name="models" value="SageMaker">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjRkY5OTAwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSJ3aGl0ZSI+QVdTPC90ZXh0Pjwvc3ZnPg==" class="model-icon" alt="SageMaker">
+                            <div class="model-info">
+                                <div class="model-name">SageMaker</div>
+                                <div class="model-company">Amazon</div>
+                            </div>
+                        </div>
+                        <div class="model-option">
+                            <input type="checkbox" class="form-check-input" id="llama" name="models" value="LLaMA">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjMDA2NkZGIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSJ3aGl0ZSI+TEVNPC90ZXh0Pjwvc3ZnPg==" class="model-icon" alt="LLaMA">
+                            <div class="model-info">
+                                <div class="model-name">LLaMA</div>
+                                <div class="model-company">Meta</div>
+                            </div>
+                        </div>
+                        <div class="model-option">
+                            <input type="checkbox" class="form-check-input" id="sensei" name="models" value="Sensei">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjRkYwMEZGIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSJ3aGl0ZSI+U0VOU0VJPC90ZXh0Pjwvc3ZnPg==" class="model-icon" alt="Sensei">
+                            <div class="model-info">
+                                <div class="model-name">Sensei</div>
+                                <div class="model-company">Adobe</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <button type="submit" class="submit-btn">提交调查</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- 感谢弹窗 -->
+    <div class="modal fade" id="thankYouModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center py-4">
+                    <h4 class="mb-3">感谢您的配合</h4>
+                    <p class="text-muted mb-0">愿智慧之树常青！</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 添加选项点击效果
+        document.querySelectorAll('.model-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const checkbox = this.querySelector('input[type="checkbox"]');
+                checkbox.checked = !checkbox.checked;
+                this.classList.toggle('selected', checkbox.checked);
+            });
+        });
+    </script>
+    <script src="static/js/survey.js"></script>
+</body>
+</html> 
